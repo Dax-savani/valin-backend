@@ -34,4 +34,4 @@ const uploadFile = async (fileBuffer) => {
     }
 };
 
-module.exports = { uploadFile };
+module.exports = {uploadFile};

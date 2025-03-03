@@ -18,7 +18,7 @@ insightRouter.post("/", upload.single("insight-image"), async (req, res) => {
 
         const imageUrl = await uploadFile(file.buffer);
 
-        const newInsight = await Insight.create({question, image: imageUrl  , answers});
+        const newInsight = await Insight.create({question, image: imageUrl, answers});
         res.status(201).json(newInsight);
     } catch (error) {
         console.error("Error creating insight:", error.message);
@@ -51,10 +51,10 @@ insightRouter.get("/:id", async (req, res) => {
 
 insightRouter.put("/:id", upload.single("insight-image"), async (req, res) => {
     try {
-        const { question, answers } = req.body;
+        const {question, answers} = req.body;
         const image = req.body["insight-image"];
         const file = req.file;
-        let updatedFields = { question, answers };
+        let updatedFields = {question, answers};
 
         if (file) {
             const imageUrl = await uploadFile(file.buffer);
@@ -66,17 +66,17 @@ insightRouter.put("/:id", upload.single("insight-image"), async (req, res) => {
         const updatedInsight = await Insight.findByIdAndUpdate(
             req.params.id,
             updatedFields,
-            { new: true }
+            {new: true}
         );
 
         if (!updatedInsight) {
-            return res.status(404).json({ message: "Insight not found" });
+            return res.status(404).json({message: "Insight not found"});
         }
 
         res.status(200).json(updatedInsight);
     } catch (error) {
         console.error("Error updating insight:", error.message);
-        res.status(500).json({ message: "Failed to update insight", error: error.message });
+        res.status(500).json({message: "Failed to update insight", error: error.message});
     }
 });
 
